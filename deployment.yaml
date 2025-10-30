@@ -15,14 +15,14 @@ spec:
         app: brain-tasks
     spec:
       containers:
-        - name: brain-tasks
-          image: 700664161347.dkr.ecr.ap-south-1.amazonaws.com/brain-tasks-app:v1
-          ports:
-            - containerPort: 3000
-          resources:
-            requests:
-              memory: "128Mi"
-              cpu: "100m"
-            limits:
-              memory: "256Mi"
-              cpu: "200m"
+      - name: brain-tasks
+        image: 700664161347.dkr.ecr.ap-south-1.amazonaws.com/brain-tasks-app:latest
+        ports:
+        - containerPort: 3000
+        resources:
+          requests:
+            cpu: 50m
+            memory: 64Mi
+          limits:
+            cpu: 100m
+            memory: 128Mi

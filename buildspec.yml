@@ -7,8 +7,11 @@ env:
 phases:
   pre_build:
     commands:
-      - cd Brain-Task-App   # <— enter the correct folder where package.json exists
-      - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 700664161347.dkr.ecr.ap-south-1.amazonaws.com/brain-tasks-app
+     - echo "Entering app directory..."
+      - cd Brain-Tasks-App  
+      - pwd
+      - ls -la
+      - echo "Now inside Brain-Tasks-App"
   build:
     commands:
       - docker build -t 700664161347.dkr.ecr.ap-south-1.amazonaws.com/brain-tasks-app:latest .

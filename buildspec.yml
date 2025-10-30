@@ -7,11 +7,11 @@ phases:
       - echo Installing dependencies
   pre_build:
     commands:
-      - echo Logging in to Amazon ECR...
-      - $(aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 700664161347.dkr.ecr.ap-south-1.amazonaws.com)
-      - REPO_NAME=brain-tasks-app
-      - IMAGE_TAG=${8907cb89beabbee485a2ecfd2d6087412e0d9682:0:7}
-      - IMAGE_URI=700664161347.dkr.ecr.ap-south-1.amazonaws.com/brain-tasks-app:latest
+      - echo "Entering app directory..."
+      - cd Brain-Tasks-App  
+      - pwd
+      - ls -la
+      - echo "Now inside Brain-Tasks-App"t
   build:
     commands:
       - echo Building the Docker image...

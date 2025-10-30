@@ -1,24 +1,19 @@
+# Stage 1 — Build React app
 FROM node:18-alpine AS builder
 WORKDIR /app
 
-# Copy package files and install
 COPY package*.json ./
-RUN npm ci --production
-
-# Copy source
+RUN npm install
 COPY . .
+RUN npm run build
 
-# Build step if the app needs it (uncomment if you have a build step)
-# RUN npm run build
+# Stage 2 — Serve app via Nginx
+FROM nginx:alpine
 
-# Run stage
-FROM node:18-alpine
-WORKDIR /app
+COPY --from=builder /app/dist /usr/share/nginx/html
 
-# Copy node modules and app
-COPY --from=builder /app .
+# Change default port to 3000
+RUN sed -i 's/80/3000/g' /etc/nginx/conf.d/default.conf
 
-ENV NODE_ENV=production
 EXPOSE 3000
-
-CMD ["node", "server.js"]
+CMD ["nginx", "-g", "daemon off;"]

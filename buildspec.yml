@@ -15,12 +15,12 @@ phases:
   build:
     commands:
       - echo Building the Docker image...
-      - docker build -t $IMAGE_URI .
+      - docker build -t 700664161347.dkr.ecr.ap-south-1.amazonaws.com/brain-tasks-app:latest .
   post_build:
     commands:
       - echo Pushing the Docker image...
-      - docker push $IMAGE_URI
-      - printf '[{"name":"%s","imageUri":"%s"}]' "$REPO_NAME" "$IMAGE_URI" > imagedefinitions.json
+      - docker push 700664161347.dkr.ecr.ap-south-1.amazonaws.com/brain-tasks-app:latest
+      - printf '[{"name":"%s","imageUri":"%s"}]' "brain-tasks-app" "700664161347.dkr.ecr.ap-south-1.amazonaws.com/brain-tasks-app:latest" > imagedefinitions.json
 artifacts:
   files:
     - imagedefinitions.json

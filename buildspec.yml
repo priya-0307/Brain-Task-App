@@ -1,0 +1,30 @@
+version: 0.2
+
+env:
+  variables:
+    AWS_REGION: "ap-south-1"
+    ECR_REPO: "700664161347.dkr.ecr.ap-south-1.amazonaws.com/brain-tasks-app"
+phases:
+  pre_build:
+    commands:
+      - echo Logging in to Amazon ECR...
+      - aws --version
+      - aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $ECR_REPO
+      - REPO_URI=$ECR_REPO
+      - IMAGE_TAG=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
+  build:
+    commands:
+      - echo Build started on `date`
+      - docker build -t $REPO_URI:$IMAGE_TAG .
+      - docker tag $REPO_URI:$IMAGE_TAG $REPO_URI:latest
+  post_build:
+    commands:
+      - echo Pushing image...
+      - docker push $REPO_URI:$IMAGE_TAG
+      - docker push $REPO_URI:latest
+      # Option A: update k8s manifest via kubectl if you allow CodeBuild to access cluster
+      # - aws eks update-kubeconfig --region $AWS_REGION --name brain-tasks-cluster
+      # - kubectl set image deployment/brain-tasks-deployment brain-tasks=$REPO_URI:$IMAGE_TAG --record
+artifacts:
+  files:
+    - '**/*'

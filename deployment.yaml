@@ -5,7 +5,7 @@ metadata:
   labels:
     app: brain-tasks
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: brain-tasks
@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: brain-tasks
-          image: <your_aws_account_id>.dkr.ecr.ap-south-1.amazonaws.com/brain-tasks-app:v1
+          image: 700664161347.dkr.ecr.ap-south-1.amazonaws.com/brain-tasks-app:v1
           ports:
             - containerPort: 3000
           resources:

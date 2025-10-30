@@ -1,0 +1,25 @@
+version: 0.0
+os: linux
+files:
+  - source: /
+    destination: /home/ec2-user/brain-tasks-app/
+hooks:
+  BeforeInstall:
+    - location: scripts/install_dependencies.sh
+      timeout: 300
+      runas: ec2-user
+
+  AfterInstall:
+    - location: scripts/update_kubeconfig.sh
+      timeout: 300
+      runas: ec2-user
+
+  ApplicationStart:
+    - location: scripts/deploy_to_eks.sh
+      timeout: 600
+      runas: ec2-user
+
+  ValidateService:
+    - location: scripts/verify_deployment.sh
+      timeout: 300
+      runas: ec2-user

@@ -1,13 +1,18 @@
-# Stage 1 — Build React app
-FROM public.ecr.aws/docker/library/node:18-alpine AS builder
+# build stage
+FROM node:18-alpine AS builder
 WORKDIR /app
 COPY package*.json ./
-RUN npm install
+RUN npm ci
 COPY . .
-RUN npm run build
+# if app has a build step (vite/react)
+#RUN npm run build
 
-# Stage 2 — Serve using Nginx
-FROM public.ecr.aws/docker/library/nginx:alpine
-COPY --from=builder /app/dist /usr/share/nginx/html
+# production stage — serve built assets with lightweight server
+FROM node:18-alpine
+WORKDIR /app
+# install serve or use a minimal static server; here using serve
+RUN npm i -g serve
+COPY --from=builder /app/dist ./dist
+ENV PORT=3000
 EXPOSE 3000
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["sh", "-c", "serve -s dist -l 3000"]

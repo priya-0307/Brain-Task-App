@@ -8,10 +8,10 @@ phases:
   pre_build:
     commands:
       - echo "Entering app directory..."
-      - cd Brain-Tasks-App  
+      - cd Brain-Task-App  
       - pwd
       - ls -la
-      - echo "Now inside Brain-Tasks-App"
+      - echo "Now inside Brain-Task-App"
   build:
     commands:
       - echo Building the Docker image...

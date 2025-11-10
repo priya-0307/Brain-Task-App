@@ -6,20 +6,23 @@ phases:
     commands:
       - echo Installing dependencies
   pre_build:
-    commands:
-      - echo "Entering app directory..."
-      - echo "Listing directory"
-      - ls -R
-      
-  build:
-    commands:
-      - echo Building the Docker image...
-      - docker build -t 700664161347.dkr.ecr.ap-south-1.amazonaws.com/brain-tasks-app:latest .
-  post_build:
-    commands:
-      - echo Pushing the Docker image...
-      - docker push 700664161347.dkr.ecr.ap-south-1.amazonaws.com/brain-tasks-app:latest
-      - printf '[{"name":"%s","imageUri":"%s"}]' "brain-tasks-app" "700664161347.dkr.ecr.ap-south-1.amazonaws.com/brain-tasks-app:latest" > imagedefinitions.json
+   commands:
+- echo Logging in to Amazon ECR...
+- aws --version
+- aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 700664161347.dkr.ecr.ap-south-1.amazonaws.com
+- IMAGE_TAG=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
+- IMAGE_URI=700664161347.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPO:$IMAGE_TAG
+- echo IMAGE_URI=$IMAGE_URI > imageDetail.txt
+build:
+commands:
+- echo Build started 
+- docker build -t $IMAGE_URI .
+post_build:
+commands:
+- echo Pushing image...
+- docker push $IMAGE_URI
+- echo Build completed 
+- echo "IMAGE_URI=$IMAGE_URI" > imageDetail.txt
 artifacts:
   files:
-    - imagedefinitions.json
+    - imageDetail.txt

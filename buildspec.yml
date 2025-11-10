@@ -13,18 +13,18 @@ phases:
       - aws --version
       - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 700664161347.dkr.ecr.ap-south-1.amazonaws.com
       - IMAGE_TAG=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
-      - IMAGE_URI=700664161347.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPO:$IMAGE_TAG
+      - IMAGE_URI=700664161347.dkr.ecr.ap-south-1.amazonaws.com/brain-tasks-app:latest
       - echo IMAGE_URI=$IMAGE_URI > imageDetail.txt
 
   build:
     commands:
       - echo Build started
-      - docker build -t $IMAGE_URI .
+      - docker build -t 700664161347.dkr.ecr.ap-south-1.amazonaws.com/brain-tasks-app:latest .
 
   post_build:
     commands:
       - echo Pushing image...
-      - docker push $IMAGE_URI
+      - docker push 700664161347.dkr.ecr.ap-south-1.amazonaws.com/brain-tasks-app:latest
       - echo Build completed
       - echo "IMAGE_URI=$IMAGE_URI" > imageDetail.txt
 

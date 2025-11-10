@@ -8,6 +8,8 @@ phases:
   pre_build:
     commands:
       - echo "Entering app directory..."
+      - echo "Listing directory"
+      - ls -R
       - cd Brain-Task-App  
       - pwd
       - ls -la

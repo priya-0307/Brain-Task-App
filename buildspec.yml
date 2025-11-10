@@ -11,7 +11,7 @@ phases:
       - cd Brain-Tasks-App  
       - pwd
       - ls -la
-      - echo "Now inside Brain-Tasks-App"t
+      - echo "Now inside Brain-Tasks-App"
   build:
     commands:
       - echo Building the Docker image...

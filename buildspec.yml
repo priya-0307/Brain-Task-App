@@ -10,10 +10,7 @@ phases:
       - echo "Entering app directory..."
       - echo "Listing directory"
       - ls -R
-      - cd Brain-Task-App  
-      - pwd
-      - ls -la
-      - echo "Now inside Brain-Task-App"
+      
   build:
     commands:
       - echo Building the Docker image...

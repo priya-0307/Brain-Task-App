@@ -13,7 +13,7 @@ phases:
       - aws --version
       - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 700664161347.dkr.ecr.ap-south-1.amazonaws.com
       - IMAGE_TAG=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
-      - IMAGE_URI=700664161347.dkr.ecr.ap-south-1.amazonaws.com/brain-tasks-app:latest
+      - IMAGE_URI=70066461347.dkr.ecr.ap-south-1.amazonaws.com/brain-tasks-app:latest
       - echo IMAGE_URI=$IMAGE_URI > imageDetail.txt
 
   build:

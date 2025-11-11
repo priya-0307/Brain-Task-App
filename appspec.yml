@@ -1,25 +1,7 @@
 version: 0.0
-os: linux
-files:
-  - source: /
-    destination: /home/ubuntu/brain-task-app/
-hooks:
-  BeforeInstall:
-    - location: scripts/install_dependencies.sh
-      timeout: 300
-      runas: ubuntu
-
-  AfterInstall:
-    - location: scripts/update_kubeconfig.sh
-      timeout: 300
-      runas: ubuntu
-
-  ApplicationStart:
-    - location: scripts/deploy_to_eks.sh
-      timeout: 600
-      runas: ubuntu
-
-  ValidateService:
-    - location: scripts/verify_deployment.sh
-      timeout: 300
-      runas: ubuntu
+Resources: []
+Hooks:
+  - AfterAllowTraffic:
+      - location: scripts/deploy_to_eks.sh
+        timeout: 300
+        runas: ubuntu

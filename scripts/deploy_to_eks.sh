@@ -19,5 +19,4 @@ kubectl apply -f deployment.yaml -n ${NAMESPACE}
 kubectl apply -f service.yaml -n ${NAMESPACE}
 
 
-# Optionally rollout status
-kubectl rollout status deployment/brain-tasks-app -n ${NAMESPACE} --timeout=120s
+

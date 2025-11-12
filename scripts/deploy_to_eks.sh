@@ -2,7 +2,7 @@
 set -e
 
 
-# input args (if passed from pipeline) or environment
+# input args (if passed from pipeline) 
 CLUSTER_NAME=${EKS_CLUSTER_NAME:-my-eks-cluster}
 REGION=${AWS_REGION:-ap-south-1}
 NAMESPACE=${K8S_NAMESPACE:-default}

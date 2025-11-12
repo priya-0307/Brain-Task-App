@@ -4,9 +4,7 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 COPY . .
-# if app has a build step (vite/react)
-#RUN npm run build
-
+RUN npm run build
 # production stage — serve built assets with lightweight server
 FROM public.ecr.aws/docker/library/node:18-alpine
 WORKDIR /app

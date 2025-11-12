@@ -29,6 +29,7 @@ This project demonstrates deploying a React application to production using Dock
 
 
 docker build -t brain-tasks-app .
+
 docker run -p 3000:80 brain-tasks-app
 
 ---

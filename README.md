@@ -95,11 +95,6 @@ kubectl apply -f service.yaml
 aws eks update-kubeconfig --region <region> --name <cluster-name>
 
 
-* Get LoadBalancer hostname:
-
-
-kubectl get svc brain-tasks-lb -o jsonpath='{.status.loadBalancer.ingress[0].hostname}'
-
 
 * Check logs of a container:
 
